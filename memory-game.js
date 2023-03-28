@@ -116,7 +116,7 @@ function handleCardClick(evt) {
         firstFlip = '';
         secondFlip = '';
         matchCount++;
-      } else if () {
+      } else {
         okToFlip = false;
         setTimeout(unFlipCards, 1000, firstFlip, secondFlip);
       }
