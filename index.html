@@ -10,19 +10,20 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
   </head>
 
   <body>
     <h1 class="text-center">Mikey's Marvelous Memory Game!</h1>
     <h2 class="text-center"><button id="start">GAME ON</button></h2>
-    <div>Move Count: <span id="counter">0</span></div>
+
+    <div class="scores">
+      <div>Move Count: <span id="counter">0</span></div>
+      <div><span id="lowScore">0</span>: Lowest Score</div>
+    </div>
+
     <div id="game"></div>
-    <h3 class="text-center"><button class="restart">Play Again?</button></h3>
+    <h3 id="restart" class="text-center"><button>Play Again?</button></h3>
+    <footer><button id="resetScore">Reset Lowest Score</button></footer>
     <script src="memory-game.js"></script>
   </body>
 </html>

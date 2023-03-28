@@ -1,9 +1,11 @@
 ('use strict');
 
 /** Memory game: find matching pairs of cards and flip both of them. */
-const restartButton = document.getElementsByClassName('restart');
+const restartButton = document.getElementById('restart');
 let attemptsCounter = document.getElementById('counter');
 const startButton = document.getElementById('start');
+let lowscoreHTML = document.getElementById('lowScore');
+const resetScoreButton = document.getElementById('resetScore');
 let gameHasStarted = false; // var to start game
 let flipCount = 0;
 let attempts = 0;
@@ -12,25 +14,42 @@ let firstFlip; // first card (div)
 let secondFlip; // second card (div)
 let color1; // first card color (string)
 let color2; // second card color (string)
+
+let lowScoreLocal = localStorage.getItem('lowestscore');
+
+if (lowScoreLocal === null) {
+  lowscoreHTML.innerText = 'n/a';
+} else {
+  lowscoreHTML.innerText = lowScoreLocal;
+}
+
 if (flipCount >= 2) {
   flipCount = 0;
 }
 
 let okToFlip = true;
+function RandomRGB() {
+  let red = Math.floor(Math.random() * 256);
+  let green = Math.floor(Math.random() * 256);
+  let blue = Math.floor(Math.random() * 256);
+  return `rgb(${red}, ${green}, ${blue})`;
+}
+
 const COLORS = [
   'red',
+  'blue',
+  // 'red',
   // 'blue',
-  // 'green',
-  // 'orange',
-  // 'purple',
-  'red',
-  // 'blue',
+  'green',
+  'orange',
+  'purple',
+
   // 'green',
   // 'orange',
   // 'purple',
 ];
 
-const colors = shuffle(COLORS);
+const colors = shuffle(COLORS.concat(COLORS));
 const maxMatches = colors.length / 2;
 
 /** Shuffle array items in-place and return shuffled array. */
@@ -79,6 +98,8 @@ function flipCard(card) {
   card.style.backgroundColor = color;
   removeListener(card);
   attempts++;
+
+  // @ts-ignore
   attemptsCounter.innerText = attempts;
 }
 
@@ -98,7 +119,6 @@ function unFlipCards(card1, card2) {
 /** Handle clicking on a card: this could be first-card or second-card. */
 
 function handleCardClick(evt) {
-  gameOver();
   if (okToFlip) {
     if (flipCount === 0) {
       flipCard(evt.target);
@@ -112,10 +132,32 @@ function handleCardClick(evt) {
 
       flipCount = 0;
 
+      // check if match:
+
       if (color1 === color2) {
         firstFlip = '';
         secondFlip = '';
         matchCount++;
+
+        // check if game-over
+
+        if (maxMatches === matchCount) {
+          // @ts-ignore
+          restartButton.style.display = 'block';
+
+          // Update Lowest-Score Locally and display on HTML
+          if (lowScoreLocal === null) {
+            updateLocalLowScore();
+            updateHTMLLowScore();
+          } else {
+            if (+lowScoreLocal > attempts) {
+              alert('Congrats! That was the fewest cilcks yet!');
+              updateLocalLowScore();
+              updateHTMLLowScore();
+              attempts = 0;
+            }
+          }
+        }
       } else {
         okToFlip = false;
         setTimeout(unFlipCards, 1000, firstFlip, secondFlip);
@@ -131,11 +173,32 @@ function removeListener(target) {
 function addListener(target) {
   target.addEventListener('click', handleCardClick);
 }
+// let newGame = document.createElement('div');
 
-function gameOver() {
-  if (maxMatches === matchCount) {
-    alert('WINNER');
-  }
+// let oldGame = document.getElementById('game');
+// let body = document.querySelector('body');
+// restartButton?.addEventListener('click', function () {
+//   const footer = document.querySelector('footer');
+//   body?.removeChild(oldGame);
+//   newGame.setAttribute('id', 'game');
+//   body?.insertBefore(newGame, footer);
+//   createCards(colors);
+//   gameHasStarted = true;
+// });
+restartButton?.addEventListener('click', function () {
+  location.reload();
+});
+
+resetScoreButton?.addEventListener('click', () => {
+  localStorage.clear();
+  updateHTMLLowScore();
+});
+
+function updateHTMLLowScore() {
+  lowscoreHTML.innerText = attempts.toString();
+}
+function updateLocalLowScore() {
+  localStorage.setItem('lowestscore', attempts.toString());
 }
 //  Save score  ----------------
 

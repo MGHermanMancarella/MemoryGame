@@ -7,6 +7,13 @@
   margin: 20px;
   display: inline-block;
 }
-.restart {
+#restart {
   display: none;
+}
+.scores {
+  display: flex;
+  flex-flow: row, nowrap;
+  justify-content: space-between;
+  margin-left: 2em;
+  margin-right: 2em;
 }
