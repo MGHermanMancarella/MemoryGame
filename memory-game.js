@@ -32,25 +32,36 @@ function RandomRGB() {
   let red = Math.floor(Math.random() * 256);
   let green = Math.floor(Math.random() * 256);
   let blue = Math.floor(Math.random() * 256);
-  return `rgb(${red}, ${green}, ${blue})`;
+  return `rgb(${red},${green},${blue})`;
+}
+function RandoCardCount() {
+  const min = 2;
+  const max = 15;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 const COLORS = [
-  'red',
-  'blue',
   // 'red',
   // 'blue',
-  'green',
-  'orange',
-  'purple',
-
+  // 'red',
+  // 'blue',
+  // 'green',
+  // 'orange',
+  // 'purple',
   // 'green',
   // 'orange',
   // 'purple',
 ];
+let colors = [];
+let maxMatches = colors.length / 2;
 
-const colors = shuffle(COLORS.concat(COLORS));
-const maxMatches = colors.length / 2;
+function generateArray() {
+  for (let i = 0; i < RandoCardCount(); i++) {
+    COLORS.push(RandomRGB());
+  }
+  colors = shuffle(COLORS.concat(COLORS));
+  maxMatches = COLORS.length;
+}
 
 /** Shuffle array items in-place and return shuffled array. */
 
@@ -75,6 +86,7 @@ function shuffle(items) {
 
 startButton?.addEventListener('click', function (event) {
   if (gameHasStarted === false) {
+    generateArray();
     createCards(colors);
   }
   gameHasStarted = true;
