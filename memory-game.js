@@ -14,6 +14,40 @@ let firstFlip; // first card (div)
 let secondFlip; // second card (div)
 let color1; // first card color (string)
 let color2; // second card color (string)
+let okToFlip = true;
+
+//-------slider--------
+const mydiv = document.querySelector('div');
+const myRange = document.getElementById('myRange');
+const slideCounter = document.getElementById('slideCounter');
+let cardCount = 10;
+
+myRange.addEventListener('input', () => {
+  slideCounter.innerText = myRange.value;
+  cardCount = myRange.value;
+});
+//------------------------
+
+//------randomYorN radio------
+let randomColors = false;
+const YNRadio = document.getElementsByName('randomYorN');
+for (let option of YNRadio) {
+  option.addEventListener('click', randomColorYorN);
+}
+function randomColorYorN() {
+  for (let i = 0; i < YNRadio.length; i++) {
+    if (YNRadio[i].checked && YNRadio[i].value === 'yes') {
+      return (randomColors = true);
+    } else {
+      return (randomColors = false);
+    }
+  }
+}
+//------------------------
+
+//
+//------Lowest score-------
+//
 
 let lowScoreLocal = localStorage.getItem('lowestscore');
 
@@ -26,8 +60,17 @@ if (lowScoreLocal === null) {
 if (flipCount >= 2) {
   flipCount = 0;
 }
+function updateHTMLLowScore(arg) {
+  lowscoreHTML.innerText = arg;
+}
+function updateLocalLowScore() {
+  localStorage.setItem('lowestscore', attempts.toString());
+}
 
-let okToFlip = true;
+//
+//-------Randomize functions--------
+//
+
 function RandomRGB() {
   let red = Math.floor(Math.random() * 256);
   let green = Math.floor(Math.random() * 256);
@@ -36,31 +79,62 @@ function RandomRGB() {
 }
 function RandoCardCount() {
   const min = 4;
-  const max = 16;
+  const max = 50;
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const COLORS = [
-  // 'red',
-  // 'blue',
-  // 'red',
-  // 'blue',
-  // 'green',
-  // 'orange',
-  // 'purple',
-  // 'green',
-  // 'orange',
-  // 'purple',
-];
-let colors = [];
-let maxMatches = colors.length / 2;
+//--------------------
 
+//----Card and Color Array Data---
+
+const defaultArr = [
+  'red',
+  'blue',
+  'red',
+  'blue',
+  'green',
+  'orange',
+  'purple',
+  'green',
+  'orange',
+  'purple',
+  'maroon',
+  'fuchsia',
+  'teal',
+  'aqua',
+  'bisque',
+  'chartreuse',
+  'chocolate',
+  'crimson',
+  'yellow',
+  'darkgoldenrod',
+  'darkolivegreen',
+  'thistle',
+  'slategray',
+  'sandybrown',
+  'DarkRed',
+  'black',
+  'DarkKhaki',
+  'Indigo',
+  'SaddleBrown',
+  'DarkSlateGray',
+];
+
+let finalCards = [];
+let maxMatches;
+//--------------------
+
+//------Create Cards + shuffle-----
 function generateArray() {
-  for (let i = 0; i < RandoCardCount(); i++) {
-    COLORS.push(RandomRGB());
+  for (let i = 0; i < cardCount / 2; i++) {
+    if (randomColors) {
+      finalCards.push(RandomRGB());
+    } else {
+      finalCards.push(defaultArr[i]);
+    }
   }
-  colors = shuffle(COLORS.concat(COLORS));
-  maxMatches = COLORS.length;
+  finalCards = shuffle(finalCards.concat(finalCards));
+  maxMatches = finalCards.length / 2;
 }
 
 /** Shuffle array items in-place and return shuffled array. */
@@ -84,10 +158,12 @@ function shuffle(items) {
 /** Create card for every color in colors (each will appear twice)
  */
 
+//--------------------
+
 startButton?.addEventListener('click', function (event) {
   if (gameHasStarted === false) {
     generateArray();
-    createCards(colors);
+    createCards(finalCards);
   }
   gameHasStarted = true;
 });
@@ -103,7 +179,7 @@ function createCards(cards) {
   }
 }
 
-/** Flip a card face-up. */
+//------Flip a card face-up-----
 
 function flipCard(card) {
   let color = card.classList.value;
@@ -115,7 +191,7 @@ function flipCard(card) {
   attemptsCounter.innerText = attempts;
 }
 
-/** Flip a card face-down. */
+//------Flip a card face-down------
 
 function unFlipCards(card1, card2) {
   let cards = [card1, card2];
@@ -160,12 +236,13 @@ function handleCardClick(evt) {
           // Update Lowest-Score Locally and display on HTML
           if (lowScoreLocal === null) {
             updateLocalLowScore();
-            updateHTMLLowScore();
+            updateHTMLLowScore(attempts.toString());
           } else {
             if (+lowScoreLocal > attempts) {
               alert('Congrats! That was the fewest cilcks yet!');
               updateLocalLowScore();
-              updateHTMLLowScore();
+              updateHTMLLowScore(attempts.toString());
+              alert();
               attempts = 0;
             }
           }
@@ -203,15 +280,9 @@ restartButton?.addEventListener('click', function () {
 
 resetScoreButton?.addEventListener('click', () => {
   localStorage.clear();
-  updateHTMLLowScore();
+  updateHTMLLowScore('n/a');
 });
 
-function updateHTMLLowScore() {
-  lowscoreHTML.innerText = attempts.toString();
-}
-function updateLocalLowScore() {
-  localStorage.setItem('lowestscore', attempts.toString());
-}
 //  Save score  ----------------
 
 // if ('lowestScore' in localStorage){

@@ -20,16 +20,22 @@
       </h3>
       <div class="gameSettings">
         <div class="switch-field">
-          <div>Random Colors (More difficult)</div>
+          <div>Randomize Colors? (More difficult)</div>
           <input
             type="radio"
             id="radio-one"
-            name="switch-one"
+            name="randomYorN"
             value="yes"
             checked
           />
           <label for="radio-one">Yes</label>
-          <input type="radio" id="radio-two" name="switch-one" value="no" />
+          <input
+            type="radio"
+            id="radio-two"
+            name="randomYorN"
+            value="no"
+            checked="checked"
+          />
           <label for="radio-two">No</label>
         </div>
         <div class="slidecontainer">
@@ -38,10 +44,11 @@
             min="2"
             max="50"
             value="10"
-            id="slider"
+            class="slider"
+            id="myRange"
             step="2"
           />
-          <div id="slideCounter"></div>
+          <span id="slideCounter">10</span>
         </div>
       </div>
 
