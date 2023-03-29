@@ -13,16 +13,43 @@
   </head>
 
   <body>
-    <h1 class="text-center">Mikey's Marvelous Memory Game!</h1>
-    <h2 class="text-center">
-      <button id="start">Let the Matching Begin!</button>
-    </h2>
+    <div class="headingOptions">
+      <h1 class="text-center">Mikey's Marvelous Memory Game!</h1>
+      <h3 class="text-center">
+        <button id="start">Start</button>
+      </h3>
+      <div class="gameSettings">
+        <div class="switch-field">
+          <div>Random Colors (More difficult)</div>
+          <input
+            type="radio"
+            id="radio-one"
+            name="switch-one"
+            value="yes"
+            checked
+          />
+          <label for="radio-one">Yes</label>
+          <input type="radio" id="radio-two" name="switch-one" value="no" />
+          <label for="radio-two">No</label>
+        </div>
+        <div class="slidecontainer">
+          <input
+            type="range"
+            min="2"
+            max="50"
+            value="10"
+            id="slider"
+            step="2"
+          />
+          <div id="slideCounter"></div>
+        </div>
+      </div>
 
-    <div class="scores">
-      <div>Move Count: <span id="counter">0</span></div>
-      <div><span id="lowScore">0</span>: Lowest Score</div>
+      <div class="scores">
+        <div>Move Count: <span id="counter">0</span></div>
+        <div><span id="lowScore">0</span>: Lowest Score</div>
+      </div>
     </div>
-
     <div id="game"></div>
     <h3 id="restart" class="text-center"><button>Play Again?</button></h3>
     <footer><button id="resetScore">Reset Lowest Score</button></footer>

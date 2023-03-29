@@ -17,3 +17,29 @@
   margin-left: 2em;
   margin-right: 2em;
 }
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #4678f3, #64d6ee);
+}
+h1 {
+  flex-basis: 100%;
+}
+#start {
+  color: ;
+  /* align-self: flex-start; */
+}
+#game {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  /* align-items: space-between; */
+}
+.headingOptions {
+  display: flex;
+  flex-flow: column nowrap;
+}

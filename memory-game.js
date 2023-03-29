@@ -35,8 +35,8 @@ function RandomRGB() {
   return `rgb(${red},${green},${blue})`;
 }
 function RandoCardCount() {
-  const min = 2;
-  const max = 15;
+  const min = 4;
+  const max = 16;
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -120,7 +120,7 @@ function flipCard(card) {
 function unFlipCards(card1, card2) {
   let cards = [card1, card2];
   for (let card of cards) {
-    card.style.backgroundColor = 'white';
+    card.style.backgroundColor = 'transparent';
     addListener(card);
     okToFlip = true;
   }
