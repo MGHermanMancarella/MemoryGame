@@ -75,16 +75,6 @@ for (let option of YNRadio) {
   });
 }
 
-// function randomColorYorN() {
-//   for (let i = 0; i < YNRadio.length; i++) {
-//     if (YNRadio[i].checked && YNRadio[i].value === 'yes') {
-//       return (randomColors = true);
-//     } else {
-//       return (randomColors = false);
-//     }
-//   }
-// }
-
 //
 //------Lowest score-------
 //
@@ -118,10 +108,17 @@ function RandomRGB() {
   return `rgb(${red},${green},${blue})`;
 }
 function RandoCardCount() {
-  const min = 4;
-  const max = 50;
+  const min = 2;
+  const max = 25;
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+const randomNumberButton = document.getElementById('randomNumber');
+let randomNumber = false;
+randomNumberButton?.addEventListener('click', function (e) {
+  myRange.disabled = !myRange.disabled;
+  randomNumber = !randomNumber;
+  console.log(randomNumber);
+});
 
 //--------------------
 
@@ -161,7 +158,13 @@ let maxMatches;
 
 //------Create Cards + shuffle-----
 function generateArray() {
-  for (let i = 0; i < cardCount / 2; i++) {
+  let makeThisManyCards;
+  if (!!randomNumber) {
+    makeThisManyCards = RandoCardCount();
+  } else {
+    makeThisManyCards = cardCount;
+  }
+  for (let i = 0; i < makeThisManyCards / 2; i++) {
     if (randomColors) {
       finalCards.push(RandomRGB());
     } else {
@@ -202,6 +205,11 @@ startButton?.addEventListener('click', function (event) {
   }
   saveSettings();
   gameHasStarted = true;
+
+  startButton.innerText = 'Restart?';
+  startButton.addEventListener('click', () => {
+    location.reload();
+  });
 });
 
 function createCards(cards) {
@@ -325,7 +333,6 @@ resetScoreButton?.addEventListener('click', () => {
 function saveSettings() {
   localStorage.setItem('cardCount', cardCount);
   setLocalRandomColor();
-  updateHTMLSliderVal();
 }
 //  Save score  ----------------
 
