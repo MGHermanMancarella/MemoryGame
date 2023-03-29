@@ -21,21 +21,9 @@
       <div class="gameSettings">
         <div class="switch-field">
           <div>Randomize Colors? (More difficult)</div>
-          <input
-            type="radio"
-            id="radio-one"
-            name="randomYorN"
-            value="yes"
-            checked
-          />
+          <input type="radio" name="randomYorN" value="yes" checked="false" />
           <label for="radio-one">Yes</label>
-          <input
-            type="radio"
-            id="radio-two"
-            name="randomYorN"
-            value="no"
-            checked="checked"
-          />
+          <input type="radio" name="randomYorN" value="no" checked="true" />
           <label for="radio-two">No</label>
         </div>
         <div class="slidecontainer">
@@ -59,7 +47,10 @@
     </div>
     <div id="game"></div>
     <h3 id="restart" class="text-center"><button>Play Again?</button></h3>
-    <footer><button id="resetScore">Reset Lowest Score</button></footer>
+    <footer>
+      <button id="resetScore">Reset Scores and Settings</button
+      ><button id="flipAllCards">I quit. Flip the cards!</button>
+    </footer>
     <script src="memory-game.js"></script>
   </body>
 </html>

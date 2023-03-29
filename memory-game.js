@@ -17,33 +17,73 @@ let color2; // second card color (string)
 let okToFlip = true;
 
 //-------slider--------
-const mydiv = document.querySelector('div');
+
 const myRange = document.getElementById('myRange');
 const slideCounter = document.getElementById('slideCounter');
-let cardCount = 10;
+const localCardCount = localStorage.getItem('cardCount');
+let cardCount;
+if (localCardCount === null) {
+  cardCount = 10;
+  updateHTMLSliderVal(10);
+} else {
+  cardCount = Number(localCardCount);
+  updateHTMLSliderVal(localCardCount);
+}
 
 myRange.addEventListener('input', () => {
   slideCounter.innerText = myRange.value;
   cardCount = myRange.value;
 });
+
+function updateHTMLSliderVal(val) {
+  slideCounter.innerText = val.toString();
+  myRange.value = val;
+}
+
 //------------------------
 
 //------randomYorN radio------
-let randomColors = false;
+
 const YNRadio = document.getElementsByName('randomYorN');
-for (let option of YNRadio) {
-  option.addEventListener('click', randomColorYorN);
-}
-function randomColorYorN() {
-  for (let i = 0; i < YNRadio.length; i++) {
-    if (YNRadio[i].checked && YNRadio[i].value === 'yes') {
-      return (randomColors = true);
-    } else {
-      return (randomColors = false);
-    }
+const localRandomColors = localStorage.getItem('randomColors');
+let randomColors;
+function updateHTMLRadioVal() {
+  if (localRandomColors == undefined || localRandomColors === 'false') {
+    YNRadio[1].checked = true;
+    randomColors = false;
+  } else {
+    YNRadio[0].checked = true;
+    YNRadio[1].checked = false;
+    randomColors = true;
   }
 }
-//------------------------
+updateHTMLRadioVal();
+function setLocalRandomColor() {
+  localStorage.setItem('randomColors', randomColors.toString());
+}
+for (let option of YNRadio) {
+  option.addEventListener('change', function (event) {
+    if (option.checked) {
+      if (option.value === 'yes') {
+        randomColors = true;
+        setLocalRandomColor();
+      } else {
+        randomColors = false;
+        setLocalRandomColor();
+      }
+    }
+  });
+}
+
+// function randomColorYorN() {
+//   for (let i = 0; i < YNRadio.length; i++) {
+//     if (YNRadio[i].checked && YNRadio[i].value === 'yes') {
+//       return (randomColors = true);
+//     } else {
+//       return (randomColors = false);
+//     }
+//   }
+// }
 
 //
 //------Lowest score-------
@@ -90,29 +130,24 @@ function RandoCardCount() {
 const defaultArr = [
   'red',
   'blue',
-  'red',
-  'blue',
+  'LemonChiffon',
   'green',
-  'orange',
-  'purple',
-  'green',
-  'orange',
-  'purple',
+  'MediumOrchid',
   'maroon',
   'fuchsia',
   'teal',
   'aqua',
-  'bisque',
-  'chartreuse',
+  'DodgerBlue',
+  'lawngreen',
   'chocolate',
-  'crimson',
+  'Orange',
   'yellow',
-  'darkgoldenrod',
+  'LightSalmon',
   'darkolivegreen',
-  'thistle',
+  'MidnightBlue',
   'slategray',
-  'sandybrown',
-  'DarkRed',
+  'white',
+  'LimeGreen',
   'black',
   'DarkKhaki',
   'Indigo',
@@ -137,7 +172,7 @@ function generateArray() {
   maxMatches = finalCards.length / 2;
 }
 
-/** Shuffle array items in-place and return shuffled array. */
+/** Shuffle  */
 
 function shuffle(items) {
   // This algorithm does a "perfect shuffle", where there won't be any
@@ -165,6 +200,7 @@ startButton?.addEventListener('click', function (event) {
     generateArray();
     createCards(finalCards);
   }
+  saveSettings();
   gameHasStarted = true;
 });
 
@@ -231,7 +267,7 @@ function handleCardClick(evt) {
 
         if (maxMatches === matchCount) {
           // @ts-ignore
-          restartButton.style.display = 'block';
+          showRestartButton();
 
           // Update Lowest-Score Locally and display on HTML
           if (lowScoreLocal === null) {
@@ -242,13 +278,14 @@ function handleCardClick(evt) {
               alert('Congrats! That was the fewest cilcks yet!');
               updateLocalLowScore();
               updateHTMLLowScore(attempts.toString());
-              alert();
+
               attempts = 0;
             }
           }
         }
       } else {
         okToFlip = false;
+
         setTimeout(unFlipCards, 1000, firstFlip, secondFlip);
       }
     }
@@ -281,8 +318,15 @@ restartButton?.addEventListener('click', function () {
 resetScoreButton?.addEventListener('click', () => {
   localStorage.clear();
   updateHTMLLowScore('n/a');
+  updateHTMLSliderVal(10);
+  updateHTMLRadioVal();
 });
 
+function saveSettings() {
+  localStorage.setItem('cardCount', cardCount);
+  setLocalRandomColor();
+  updateHTMLSliderVal();
+}
 //  Save score  ----------------
 
 // if ('lowestScore' in localStorage){
@@ -291,3 +335,16 @@ resetScoreButton?.addEventListener('click', () => {
 //   localStorage.clear();
 //   localStorage.setItem('lowestScore' = attempts.toString()
 // }
+
+const flipEm = document.getElementById('flipAllCards');
+flipEm?.addEventListener('click', function () {
+  let allCards = document.querySelectorAll('#game > div');
+  for (let card of allCards) {
+    card.style.backgroundColor = card.classList.value;
+  }
+  showRestartButton();
+});
+
+function showRestartButton() {
+  restartButton.style.display = 'block';
+}
