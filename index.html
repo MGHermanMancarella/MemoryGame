@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>Memory Game!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="stylesheet" href="memory-game.css" />
     <link
       rel="stylesheet"
@@ -10,48 +12,70 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Fugaz+One&family=Merriweather:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
-    <div class="headingOptions">
-      <h1 class="text-center">Mikey's Marvelous Memory Game!</h1>
-      <h3 class="text-center">
-        <button id="start">Start</button>
-      </h3>
-      <div class="gameSettings">
-        <div class="switch-field">
-          <div>Randomize Colors? (More difficult)</div>
-          <input type="radio" name="randomYorN" value="yes" checked="false" />
-          <label for="radio-one">Yes</label>
-          <input type="radio" name="randomYorN" value="no" checked="true" />
-          <label for="radio-two">No</label>
+    <section class="part-1">
+      <div class="headingOptions">
+        <h1 class="text-center">Mikey's Marvelous Memory Game!</h1>
+
+        <div class="gameSettings">
+          <div class="settingsText">Randomize Colors?</div>
+          <div class="settingsText">(More difficult)</div>
+          <div class="switch-field settingsText">
+            <input type="radio" name="randomYorN" value="yes" checked="false" />
+            <label class="" for="radio-one">Yes</label>
+            <input type="radio" name="randomYorN" value="no" checked="true" />
+            <label class="" for="radio-two">No</label>
+          </div>
+          <br />
+          <div class="slidecontainer">
+            <div>How Many Cards?</div>
+            <input
+              type="range"
+              min="2"
+              max="50"
+              value="10"
+              class="slider"
+              id="myRange"
+              step="2"
+            />
+            <div id="slideCounter">10</div>
+            <span class="settingsText"
+              ><button id="randomNumber">Random Number</button></span
+            >
+          </div>
         </div>
-        <div class="slidecontainer">
-          <input
-            type="range"
-            min="2"
-            max="50"
-            value="10"
-            class="slider"
-            id="myRange"
-            step="2"
-          />
-          <span id="slideCounter">10</span>
-          <span><button id="randomNumber">Random</button></span>
-        </div>
+        <h3 class="text-center">
+          <a href="#gameBoard"> <button id="start">Start</button></a>
+        </h3>
+        <div class="blank"></div>
       </div>
 
-      <div class="scores">
-        <div>Move Count: <span id="counter">0</span></div>
-        <div><span id="lowScore">0</span>: Lowest Score</div>
+      <footer class="counter text-center mt-5" id="lowScoreDiv">
+        Lowest Score:<span class="counter ml-3" id="lowScore">0 </span>
+      </footer>
+    </section>
+
+    <section class="part-2" id="gameBoard">
+      <div class="counter text-center mt-5">
+        Move Count:
+        <div class="counter" id="counter">0</div>
       </div>
-    </div>
-    <div id="game"></div>
-    <h3 id="restart" class="text-center"><button>Play Again?</button></h3>
-    <footer>
-      <button id="resetScore">Reset Scores and Settings</button
-      ><button id="flipAllCards">I quit. Flip the cards!</button>
-    </footer>
+
+      <div id="game"></div>
+      <h3 id="restart" class="text-center"><button>Play Again?</button></h3>
+      <footer>
+        <button id="resetScore">Reset Scores and Settings</button
+        ><button id="flipAllCards">I quit. Flip the cards!</button>
+      </footer>
+    </section>
     <script src="memory-game.js"></script>
   </body>
 </html>

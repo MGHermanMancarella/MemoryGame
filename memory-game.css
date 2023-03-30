@@ -1,5 +1,10 @@
-/* you can add to or change this. */
-
+/* font-family: 'Anton', sans-serif;
+font-family: 'Bangers', cursive;
+font-family: 'Fugaz One', cursive;
+font-family: 'Merriweather', serif; */
+html {
+  scroll-behavior: smooth;
+}
 #game div {
   border: 1px solid black;
   width: 100px;
@@ -10,36 +15,100 @@
 #restart {
   display: none;
 }
-.scores {
-  display: flex;
-  flex-flow: row, nowrap;
-  justify-content: space-between;
-  margin-left: 2em;
-  margin-right: 2em;
+div > h1 {
+  font-family: 'Bangers', cursive;
+  font-size: 5em;
+  /* display: flex; */
+  justify-content: center;
+  flex-flow: row wrap;
 }
-body {
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  div > h1 {
+    font-size: 2em;
+  }
+}
+.gameSettings {
+  background-color: #052a31ae;
+  box-shadow: 5px 5px 10px 0 white;
+  color: white;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: flex-end; */
+  flex-flow: column nowrap;
+  align-items: center;
+  max-width: 30%;
+}
+.slidecontainer {
+  text-align: center;
+}
 
+.counter {
+  font-family: 'Bangers', cursive;
+  font-size: 2em;
+}
+#lowScore,
+#counter {
+  font-size: 2.5em;
+}
+
+body {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #bbb90f, #052a31);
+
+  height: 100%;
 }
 h1 {
   flex-basis: 100%;
 }
 #start {
-  color: ;
+  color: #052a31;
+  border-radius: 10px;
+  transition: background-color 0.5s, border-radius 0.2s ease-out;
   /* align-self: flex-start; */
+}
+#start:hover {
+  background-color: #0b8826;
+  color: black;
+  border-radius: 7px;
 }
 #game {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+
   /* align-items: space-between; */
 }
 .headingOptions {
-  display: flex;
-  flex-flow: column nowrap;
+  /* display: flex;
+  flex-flow: column nowrap; */
+}
+.moveCounter {
+  /* justify-self: flex-start; */
+}
+
+footer {
+  margin-bottom: 20px;
+  /* position: absolute; */
+}
+
+section {
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.part-1 {
+  background: linear-gradient(to bottom, #ffffff, #052a31);
+}
+
+.part-2 {
+  background: linear-gradient(to bottom, #052a31, #ffffff);
+}
+ {
+  justify-self: flex-end;
+}
+footer > button {
+  background-color: #052a31;
+  color: white;
+  border-radius: 10px;
 }

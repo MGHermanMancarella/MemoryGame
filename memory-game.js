@@ -6,6 +6,7 @@ let attemptsCounter = document.getElementById('counter');
 const startButton = document.getElementById('start');
 let lowscoreHTML = document.getElementById('lowScore');
 const resetScoreButton = document.getElementById('resetScore');
+
 let gameHasStarted = false; // var to start game
 let flipCount = 0;
 let attempts = 0;
