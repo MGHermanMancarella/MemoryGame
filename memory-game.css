@@ -23,7 +23,7 @@ body {
   justify-content: space-between;
 
   min-height: 100vh;
-  background: linear-gradient(to bottom, #4678f3, #64d6ee);
+  background: linear-gradient(to bottom, #bbb90f, #052a31);
 }
 h1 {
   flex-basis: 100%;

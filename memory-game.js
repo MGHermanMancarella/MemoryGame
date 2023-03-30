@@ -328,6 +328,7 @@ resetScoreButton?.addEventListener('click', () => {
   updateHTMLLowScore('n/a');
   updateHTMLSliderVal(10);
   updateHTMLRadioVal();
+  cardCount = 10;
 });
 
 function saveSettings() {
