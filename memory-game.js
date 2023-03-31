@@ -19,9 +19,9 @@ let okToFlip = true;
 
 //-------slider--------
 
-const myRange = document.getElementById('myRange');
-const slideCounter = document.getElementById('slideCounter');
-const localCardCount = localStorage.getItem('cardCount');
+const myRange = document.getElementById('myRange'); // slider value
+const slideCounter = document.getElementById('slideCounter'); // slider displayed value
+const localCardCount = localStorage.getItem('cardCount'); // locally stored slider value
 let cardCount;
 if (localCardCount === null) {
   cardCount = 10;
@@ -41,9 +41,25 @@ function updateHTMLSliderVal(val) {
   myRange.value = val;
 }
 
+//-----randomNumberButton attached to slider---
+
+const randomNumberButton = document.getElementById('randomNumber');
+let randomNumber = false;
+let localRandomCardCount = localStorage.getItem('randomNumber');
+if (localRandomCardCount === 'true') {
+  randomNumber = true;
+  myRange.disabled = true;
+}
+
+randomNumberButton?.addEventListener('click', function (e) {
+  myRange.disabled = !myRange.disabled;
+  randomNumber = !randomNumber;
+  console.log(randomNumber);
+});
+
 //------------------------
 
-//------randomYorN radio------
+//------Card Colors: randomYorN radio------
 
 const YNRadio = document.getElementsByName('randomYorN');
 const localRandomColors = localStorage.getItem('randomColors');
@@ -113,13 +129,6 @@ function RandoCardCount() {
   const max = 25;
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-const randomNumberButton = document.getElementById('randomNumber');
-let randomNumber = false;
-randomNumberButton?.addEventListener('click', function (e) {
-  myRange.disabled = !myRange.disabled;
-  randomNumber = !randomNumber;
-  console.log(randomNumber);
-});
 
 //--------------------
 
@@ -308,18 +317,7 @@ function removeListener(target) {
 function addListener(target) {
   target.addEventListener('click', handleCardClick);
 }
-// let newGame = document.createElement('div');
 
-// let oldGame = document.getElementById('game');
-// let body = document.querySelector('body');
-// restartButton?.addEventListener('click', function () {
-//   const footer = document.querySelector('footer');
-//   body?.removeChild(oldGame);
-//   newGame.setAttribute('id', 'game');
-//   body?.insertBefore(newGame, footer);
-//   createCards(colors);
-//   gameHasStarted = true;
-// });
 restartButton?.addEventListener('click', function () {
   location.reload();
 });
@@ -330,10 +328,12 @@ resetScoreButton?.addEventListener('click', () => {
   updateHTMLSliderVal(10);
   updateHTMLRadioVal();
   cardCount = 10;
+  myRange.disabled = false;
 });
 
 function saveSettings() {
   localStorage.setItem('cardCount', cardCount);
+  localStorage.setItem('randomNumber', randomNumber);
   setLocalRandomColor();
 }
 //  Save score  ----------------
