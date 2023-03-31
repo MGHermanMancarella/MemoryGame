@@ -6,26 +6,6 @@ font-family: 'Merriweather', serif; */
 html {
   scroll-behavior: smooth;
 }
-@media only screen and (max-width: 400) {
-  div > h1 {
-    font-size: 1em;
-  }
-  #scores {
-    flex-flow: row wrap;
-    margin-top: 5px;
-  }
-  #game > div {
-    max-width: 50px;
-    max-height: 50px;
-    margin: 2px;
-  }
-
-  #start,
-  #restart {
-    letter-spacing: 0;
-    min-width: fit-content;
-  }
-}
 
 #game div {
   border: 1px solid black;
@@ -131,4 +111,28 @@ h1 {
 #feet {
   display: flex;
   justify-content: space-around;
+}
+@media screen and (max-width: 480px) {
+  div > h1 {
+    font-size: 2em;
+  }
+  #scores {
+    flex-flow: row wrap;
+    margin-top: 5px;
+  }
+  #game > div {
+    max-width: 50px;
+    max-height: 50px;
+    margin: 5px;
+    margin-top: 30px;
+
+    /* justify-content: space-between; */
+  }
+  #game {
+    align-content: center;
+  }
+  #start,
+  #restart {
+    letter-spacing: 0;
+  }
 }
