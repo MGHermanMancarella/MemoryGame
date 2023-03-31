@@ -6,17 +6,38 @@ font-family: 'Merriweather', serif; */
 html {
   scroll-behavior: smooth;
 }
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  div > h1 {
+    font-size: 1em;
+  }
+  #scores {
+    flex-flow: row wrap;
+    margin-top: 5px;
+  }
+  #game > div {
+    max-width: 50px;
+    max-height: 50px;
+    margin: 2px;
+  }
+  #start,
+  #restart {
+    letter-spacing: 0;
+    min-width: fit-content;
+  }
+}
+
 #game div {
   border: 1px solid black;
   width: 100px;
   height: 100px;
   margin: 10px;
   display: inline-block;
+  /* justify-content: space-around; */
 }
 #restart {
   display: none;
   background-color: #052a31;
-
+  width: 25%;
   color: white;
   border-radius: 10px;
 
@@ -28,15 +49,6 @@ div > h1 {
   /* display: flex; */
   justify-content: center;
   flex-flow: row wrap;
-}
-@media only screen and (min-width: 320px) and (max-width: 480px) {
-  div > h1 {
-    font-size: 1em;
-  }
-  #scores {
-    flex-flow: row wrap;
-    margin-top: 5px;
-  }
 }
 
 .gameSettings {
@@ -66,7 +78,11 @@ div > h1 {
 #counter {
   font-size: 2em;
 }
-
+.scores {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
 body {
   min-height: 100vh;
   width: 100%;
@@ -82,7 +98,8 @@ h1 {
 #start {
   color: #052a31;
   border-radius: 10px;
-  width: 25%;
+  /* min-width: fit-content; */
+
   transition: background-color 0.5s, border-radius 0.2s ease-out, color 0.5s;
   margin-top: 10px;
   font-family: 'Bangers', cursive;
@@ -99,7 +116,7 @@ h1 {
 #game {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
   margin-left: 3vh;
   margin-right: 3vh;
@@ -113,12 +130,7 @@ h1 {
   margin-bottom: 10px;
   border: solid;
 }
-#scores {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  margin-top: -10px;
-}
+
 #feet {
   display: flex;
   justify-content: space-around;
