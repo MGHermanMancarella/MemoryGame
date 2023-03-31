@@ -83,7 +83,7 @@ for (let option of YNRadio) {
 let lowScoreLocal = localStorage.getItem('lowestscore');
 
 if (lowScoreLocal === null) {
-  lowscoreHTML.innerText = 'n/a';
+  lowscoreHTML.innerText = '--';
 } else {
   lowscoreHTML.innerText = lowScoreLocal;
 }
@@ -326,7 +326,7 @@ restartButton?.addEventListener('click', function () {
 
 resetScoreButton?.addEventListener('click', () => {
   localStorage.clear();
-  updateHTMLLowScore('n/a');
+  updateHTMLLowScore('--');
   updateHTMLSliderVal(10);
   updateHTMLRadioVal();
   cardCount = 10;
@@ -347,13 +347,19 @@ function saveSettings() {
 
 const flipEm = document.getElementById('flipAllCards');
 flipEm?.addEventListener('click', function () {
-  let allCards = document.querySelectorAll('#game > div');
-  for (let card of allCards) {
-    card.style.backgroundColor = card.classList.value;
+  if (okToFlip) {
+    let allCards = document.querySelectorAll('#game > div');
+    for (let card of allCards) {
+      card.style.backgroundColor = card.classList.value;
+    }
+    showRestartButton();
   }
-  showRestartButton();
 });
 
 function showRestartButton() {
-  restartButton.style.display = 'block';
+  restartButton.style.display = 'inline-block';
+  restartButton?.setAttribute('color', 'white');
+  restartButton?.setAttribute('border-radius', '10px');
+
+  // restartButton.style.backgroundColor = '#052a31';
 }
